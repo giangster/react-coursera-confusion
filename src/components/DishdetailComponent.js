@@ -7,10 +7,11 @@ import {
 class Dishdetail extends Component {
 
     render() {
+        const dateFormat = { year: 'numeric', month: 'short', day: '2-digit' };
         const comments = this.props.dish.comments.map((dish, index) =>
             <ul key={index} className="list-unstyled">
                 <li>{this.props.dish.comments[index].comment}</li>
-                <li>-- {this.props.dish.comments[index].author}, {this.props.dish.comments[index].date.substring(0, 10)}</li>
+                <li>-- {this.props.dish.comments[index].author}, {new Date(this.props.dish.comments[index].date).toLocaleString('en-US', dateFormat)}</li>
             </ul>
         )
 
@@ -28,12 +29,9 @@ class Dishdetail extends Component {
                 </div>
 
                 <div className="col-12 col-md-5 m-1">
-                    <Card className="list-unstyled">
-                        <CardBody>
-                            <h4>Comments</h4>
-                            {comments}
-                        </CardBody>
-                    </Card>
+                    <h4>Comments</h4>
+                    {comments}
+
                 </div>
             </div >
         )
