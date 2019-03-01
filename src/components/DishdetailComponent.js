@@ -5,13 +5,13 @@ import {
 } from 'reactstrap';
 
 class Dishdetail extends Component {
-
     render() {
+        console.log(this.props.dish)
         const dateFormat = { year: 'numeric', month: 'short', day: '2-digit' };
-        const comments = this.props.dish.comments.map((dish, index) =>
+        const comments = this.props.dish.comments.map((comment, index) =>
             <ul key={index} className="list-unstyled">
-                <li>{this.props.dish.comments[index].comment}</li>
-                <li>-- {this.props.dish.comments[index].author}, {new Date(this.props.dish.comments[index].date).toLocaleString('en-US', dateFormat)}</li>
+                <li>{comment.comment}</li>
+                <li>-- {comment.author}, {new Date(comment.date).toLocaleString('en-US', dateFormat)}</li>
             </ul>
         )
 

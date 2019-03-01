@@ -1,57 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Card, CardImg, CardImgOverlay, CardTitle
 } from 'reactstrap';
-import Dishdetail from './DishdetailComponent';
 
-class Menu extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
-    }
-
-    onDishSelect(dish) {
-        this.setState({ selectedDish: dish });
-    }
-
-    renderDish(dish) {
-        if (this.state.selectedDish)
-            return (
-                <Dishdetail dish={this.state.selectedDish} />
-            );
-        else
-            return (
-                <div></div>
-            );
-    }
-
-    render() {
-        const menu = this.props.dishes.map((dish) => {
-            return (
-                <div key={dish.id} className="col-12 col-md-5 m-1">
-                    <Card key={dish.id}
-                        onClick={() => this.onDishSelect(dish)}>
-                        <CardImg width="100%" src={dish.image} alt={dish.name} />
-                        <CardImgOverlay>
-                            <CardTitle>{dish.name}</CardTitle>
-                        </CardImgOverlay>
-                    </Card>
-                </div>
-            );
-        });
-
+function RenderMenuItem(props) {
+    return (
+        <Card onClick={() => props.onClick(props.dish.id)}>
+            <CardImg width="200px" height="200px" src={props.dish.image} alt={props.dish.name} />
+            <CardImgOverlay>
+                <CardTitle>{props.dish.name}</CardTitle>
+            </CardImgOverlay>
+        </Card>
+    );
+}
+const Menu = (props) => {
+    const menu = props.dishes.map((dish) => {
         return (
-            <div className="container">
-                <div className="row">
-                    {menu}
-                </div>
-                <div>
-                    {this.renderDish(this.state.selectedDish)}
-                </div>
+            <div className="col-12 col-md-5 m-1">
+                <RenderMenuItem dish={dish} onClick={props.onClick} />
             </div>
         );
-    }
+    });
+
+    return (
+        <div className="container">
+            <div className="row">
+                {menu}
+            </div>
+
+        </div>
+    );
 }
 
 export default Menu;
